@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Subjects" />
-        <activity android:name=".Add_Subject"></activity>
+        <activity android:name=".Add_Subject" />
+        <activity android:name=".Edit_Subject"></activity>
     </application>
 
 </manifest>
