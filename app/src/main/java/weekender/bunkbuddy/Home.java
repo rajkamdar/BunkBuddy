@@ -1,5 +1,6 @@
 package weekender.bunkbuddy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -52,12 +53,7 @@ public class Home extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
+
 
 
 
@@ -68,7 +64,7 @@ public class Home extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_Subjects) {
-            // Handle the camera action
+            startActivity(new Intent(this,Subjects.class));
         } else if (id == R.id.nav_Timetable) {
 
         } else if (id == R.id.nav_Settings) {
