@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".Subjects" />
         <activity android:name=".Add_Subject" />
-        <activity android:name=".Edit_Subject"></activity>
+        <activity android:name=".Edit_Subject" />
+        <activity android:name=".TimeTable"></activity>
     </application>
 
 </manifest>

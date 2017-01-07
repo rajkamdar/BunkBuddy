@@ -6,6 +6,10 @@ package weekender.bunkbuddy;
 
 public class Lectures_Scheduled {
 
+    int LS_ID;
+
+
+
     String day;
     int Sub_ID;
     int time;
@@ -16,6 +20,13 @@ public class Lectures_Scheduled {
         this.time = time;
     }
 
+    public int getLS_ID() {
+        return LS_ID;
+    }
+
+    public void setLS_ID(int LS_ID) {
+        this.LS_ID = LS_ID;
+    }
     public String getDay() {
         return day;
     }
