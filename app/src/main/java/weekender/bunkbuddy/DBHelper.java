@@ -1,5 +1,6 @@
 package weekender.bunkbuddy;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
@@ -64,5 +65,19 @@ public class DBHelper extends SQLiteOpenHelper {
 
         //Then create again
         onCreate(sqLiteDatabase);
+    }
+
+    public boolean addSubject(String sub_Name,String inst_Name,String req_Attendance)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(SUBJECTS_NAME,sub_Name);
+        values.put(SUBJECTS_INST_NAME,inst_Name);
+        values.put(SUBJECTS_REQ_ATTENDANCE,req_Attendance);
+        long result=db.insert(TABLE_SUBJECTS,null,values);
+        if(result==-1)
+            return false;
+        else
+            return true;
     }
 }

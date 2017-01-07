@@ -8,18 +8,18 @@ public class Subjects_Class {
 
     int Sub_ID;
     String Sub_Name;
-    int Inst_ID;
+    String Inst_Name;
     int Req_Attendance;
 
-    public Subjects_Class(String sub_Name, int inst_ID) {
+    public Subjects_Class(String sub_Name, String inst_Name) {
         Sub_Name = sub_Name;
-        Inst_ID = inst_ID;
+        Inst_Name = inst_Name;
         Req_Attendance=75;
     }
 
-    public Subjects_Class(String sub_Name, int inst_ID, int req_Attendance) {
+    public Subjects_Class(String sub_Name, String inst_Name, int req_Attendance) {
         Sub_Name = sub_Name;
-        Inst_ID = inst_ID;
+        Inst_Name = inst_Name;
         Req_Attendance = req_Attendance;
     }
 
@@ -39,12 +39,12 @@ public class Subjects_Class {
         Sub_Name = sub_Name;
     }
 
-    public int getInst_ID() {
-        return Inst_ID;
+    public String getInst_ID() {
+        return Inst_Name;
     }
 
-    public void setInst_ID(int inst_ID) {
-        Inst_ID = inst_ID;
+    public void setInst_ID(String inst_Name) {
+        Inst_Name = inst_Name;
     }
 
     public int getReq_Attendance() {
