@@ -89,6 +89,11 @@ public class DBHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    public Cursor getAllLectures(String day) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+TABLE_LECTURES_SCHEDULED+" where Day='"+day+"'",null);
+        return res;
+    }
    /* public boolean editTimeTable()
     {
 
