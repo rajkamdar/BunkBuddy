@@ -88,4 +88,9 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select * from "+TABLE_SUBJECTS,null);
         return res;
     }
+
+   /* public boolean editTimeTable()
+    {
+
+    }*/
 }
