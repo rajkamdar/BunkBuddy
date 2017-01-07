@@ -23,7 +23,8 @@
         <activity android:name=".Edit_Subject" />
         <activity android:name=".TimeTable" />
         <activity android:name=".ViewTimeTable" />
-        <activity android:name=".EditTimeTable"></activity>
+        <activity android:name=".EditTimeTable" />
+        <activity android:name=".AddAttendance"></activity>
     </application>
 
 </manifest>
