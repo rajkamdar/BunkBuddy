@@ -37,6 +37,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String LC_Attended="Attended";
 
     //Lectures-Scheduled Columns
+    public static final String LS_ID="LS_ID";
     public static final String LS_DAY="Day";
     public static final String LS_SubID="Sub_ID";
     public static final String LS_TIME="Time";
@@ -45,7 +46,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CREATE_SUBJECTS="CREATE TABLE "+TABLE_SUBJECTS+" ("+SUBJECTS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT "+SUBJECTS_NAME+" TEXT "+SUBJECTS_INST_ID+" INTEGER "+SUBJECTS_REQ_ATTENDANCE+" INTEGER)";
     public static final String CREATE_INSTRUCTORS="CREATE TABLE "+TABLE_INSTRUCTORS+" ("+INSTRUCTORS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT "+INSTRUCTORS_NAME+" TEXT )";
     public static final String CREATE_LECTURES_CONDUCTED="CREATE TABLE "+TABLE_LECTURES_CONDUCTED+" ("+LC_ID+" INTEGER PRIMARY KEY AUTOINCREMENT "+LC_SUB_ID+" INTEGER "+LC_Attended+" TEXT )";
-    public static final String CREATE_LECTURES_SCHEDULED="CREATE TABLE "+TABLE_LECTURES_SCHEDULED+" ("+LS_DAY+" TEXT "+LS_SubID+" INTEGER "+LS_TIME+" DATETIME)";
+    public static final String CREATE_LECTURES_SCHEDULED="CREATE TABLE "+TABLE_LECTURES_SCHEDULED+" ("+LS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT "+LS_DAY+" TEXT "+LS_SubID+" INTEGER "+LS_TIME+" DATETIME)";
 
 
     public DBHelper(Context context) {
