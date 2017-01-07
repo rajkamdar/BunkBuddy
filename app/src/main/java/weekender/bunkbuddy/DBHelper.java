@@ -32,6 +32,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String LC_ID="LC_ID";
     public static final String LC_SUB_ID="Sub_ID";
     public static final String LC_Attended="Attended";
+    public static final String LC_DAY="Day";
 
     //Lectures-Scheduled Columns
     public static final String LS_ID="LS_ID";
@@ -41,7 +42,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     //Create Table Statements
     public static final String CREATE_SUBJECTS="CREATE TABLE "+TABLE_SUBJECTS+" ("+SUBJECTS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+SUBJECTS_NAME+" TEXT,"+SUBJECTS_INST_NAME+" INTEGER,"+SUBJECTS_REQ_ATTENDANCE+" INTEGER)";
-    public static final String CREATE_LECTURES_CONDUCTED="CREATE TABLE "+TABLE_LECTURES_CONDUCTED+" ("+LC_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+LC_SUB_ID+" INTEGER,"+LC_Attended+" TEXT)";
+    public static final String CREATE_LECTURES_CONDUCTED="CREATE TABLE "+TABLE_LECTURES_CONDUCTED+" ("+LC_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+LC_SUB_ID+" INTEGER,"+LC_Attended+" TEXT,"+LC_DAY+" TEXT)";
     public static final String CREATE_LECTURES_SCHEDULED="CREATE TABLE "+TABLE_LECTURES_SCHEDULED+" ("+LS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+LS_DAY+" TEXT,"+LS_SubID+" INTEGER,"+LS_TIME+" TEXT)";
 
 
@@ -94,8 +95,44 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select * from "+TABLE_LECTURES_SCHEDULED+" where Day='"+day+"'",null);
         return res;
     }
-   /* public boolean editTimeTable()
+   public boolean addLecture(String day,int SubID,int time)
     {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(LS_DAY,day);
+        values.put(LS_SubID,SubID);
+        values.put(LS_TIME,time);
+        long result=db.insert(TABLE_SUBJECTS,null,values);
+        if(result==-1)
+            return false;
+        else
+            return true;
+    }
+    public boolean addAttendance(int subID,String attended,String day)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(LC_SUB_ID,subID);
+        values.put(LC_Attended,attended);
+        values.put(LC_DAY,day);
+        long result=db.insert(TABLE_SUBJECTS,null,values);
+        if(result==-1)
+            return false;
+        else
+            return true;
+    }
 
-    }*/
+    public Cursor getAttendedLectures(int subID)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select COUNT(*) from "+TABLE_LECTURES_CONDUCTED+" where Sub_ID='"+subID+"' and Attended='Yes'",null);
+        return res;
+    }
+
+    public Cursor getTotalLectures(int subID)
+    {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select COUNT(*) from "+TABLE_LECTURES_CONDUCTED+" where Sub_ID='"+subID+"'",null);
+        return res;
+    }
 }
