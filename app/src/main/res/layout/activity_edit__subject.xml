@@ -23,20 +23,22 @@
         android:layout_alignParentEnd="true"
         android:hint="Name of Subject" />
 
-    <Spinner
+    <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textView2"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:layout_below="@+id/edit_sub_et_name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:id="@+id/edit_sub_spinner" />
-
+        android:id="@+id/edit_sub_et_inst"
+        android:hint="Insructor Name" />
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
         android:ems="10"
-        android:layout_below="@+id/edit_sub_spinner"
+        android:layout_below="@+id/edit_sub_et_inst"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:id="@+id/edit_sub_at_attendance"
@@ -53,14 +55,6 @@
         android:textColor="@android:color/white"
         android:textSize="24sp" />
 
-    <TextView
-        android:text="Instructor Name:"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/textView2"
-        android:layout_below="@+id/edit_sub_et_name"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>

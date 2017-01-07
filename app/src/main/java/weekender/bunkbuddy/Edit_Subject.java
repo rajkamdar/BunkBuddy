@@ -8,8 +8,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 public class Edit_Subject extends AppCompatActivity {
-    EditText etName,etPercent;
-    Spinner spinnerInstructor;
+    EditText etName,etPercent,etInstName;
     Button btnEdit;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -17,7 +16,7 @@ public class Edit_Subject extends AppCompatActivity {
         setContentView(R.layout.activity_edit__subject);
         etName= (EditText) findViewById(R.id.edit_sub_et_name);
         etPercent= (EditText) findViewById(R.id.edit_sub_at_attendance);
-        spinnerInstructor= (Spinner) findViewById(R.id.edit_sub_spinner);
+        etInstName= (EditText) findViewById(R.id.edit_sub_et_inst);
         btnEdit= (Button) findViewById(R.id.edit_sub_btn_add);
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
