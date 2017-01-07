@@ -25,6 +25,7 @@ public class Subjects extends AppCompatActivity {
         Subjects_FAB= (FloatingActionButton) findViewById(R.id.subjects_fab);
         ArrayList<Subjects_Class>subjectsAL=new ArrayList<Subjects_Class>();
         ArrayList<String> nameAL=new ArrayList<String>();
+
         db=DBHelper.getInstance(getApplicationContext());
 
             Cursor sub=db.getAllSubjects();
