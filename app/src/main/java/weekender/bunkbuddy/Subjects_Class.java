@@ -11,13 +11,15 @@ public class Subjects_Class {
     String Inst_Name;
     int Req_Attendance;
 
-    public Subjects_Class(String sub_Name, String inst_Name) {
+    public Subjects_Class(int Sub_ID,String sub_Name, String inst_Name) {
+        this.Sub_ID=Sub_ID;
         Sub_Name = sub_Name;
         Inst_Name = inst_Name;
         Req_Attendance=75;
     }
 
-    public Subjects_Class(String sub_Name, String inst_Name, int req_Attendance) {
+    public Subjects_Class(int Sub_ID,String sub_Name, String inst_Name, int req_Attendance) {
+        this.Sub_ID=Sub_ID;
         Sub_Name = sub_Name;
         Inst_Name = inst_Name;
         Req_Attendance = req_Attendance;

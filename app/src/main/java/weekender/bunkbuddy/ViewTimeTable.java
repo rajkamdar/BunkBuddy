@@ -24,7 +24,7 @@ public class ViewTimeTable extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_time_table);
         Intent mIntent=getIntent();
-        String day=mIntent.getStringExtra("Day");
+        final String day=mIntent.getStringExtra("Day");
         view_timetable_tv= (TextView) findViewById(R.id.view_timetable_tv);
         view_timetable_lv= (ListView) findViewById(R.id.view_timetable_lv);
         view_timetable_fab= (FloatingActionButton) findViewById(R.id.view_timetable_fab);
@@ -52,7 +52,10 @@ public class ViewTimeTable extends AppCompatActivity {
         view_timetable_fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent newIntent=new Intent(ViewTimeTable.this,EditTimeTable.class);
+                newIntent.putExtra("day",day);
+                startActivity(newIntent);
+                finish();
             }
         });
     }
