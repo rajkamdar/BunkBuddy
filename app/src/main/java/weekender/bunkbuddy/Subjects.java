@@ -41,6 +41,7 @@ public class Subjects extends AppCompatActivity {
             Subjects_ListView.setAdapter(itemsAdapter);
 
         }
+        db.closeDB();
         Subjects_FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

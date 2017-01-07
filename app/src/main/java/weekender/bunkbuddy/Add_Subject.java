@@ -31,5 +31,6 @@ public class Add_Subject extends AppCompatActivity {
                     Snackbar.make(view, "Error", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
+        db.closeDB();
     }
 }

@@ -135,4 +135,11 @@ public class DBHelper extends SQLiteOpenHelper {
         Cursor res = db.rawQuery("select COUNT(*) from "+TABLE_LECTURES_CONDUCTED+" where Sub_ID='"+subID+"'",null);
         return res;
     }
+
+    // closing database
+    public void closeDB() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        if (db != null && db.isOpen())
+            db.close();
+    }
 }

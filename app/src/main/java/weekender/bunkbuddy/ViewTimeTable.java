@@ -58,5 +58,7 @@ public class ViewTimeTable extends AppCompatActivity {
                 finish();
             }
         });
+
+        db.closeDB();
     }
 }

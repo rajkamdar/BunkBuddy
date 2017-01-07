@@ -14,9 +14,14 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-
+    SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+    Date d = new Date();
+    String dayOfTheWeek = sdf.format(d);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +34,7 @@ public class Home extends AppCompatActivity
             @Override
             public void onClick(View view) {
                Intent mIntent=new Intent(Home.this,AddAttendance.class);
+                mIntent.putExtra("day",dayOfTheWeek);
                 startActivity(mIntent);
             }
         });

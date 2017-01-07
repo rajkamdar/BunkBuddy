@@ -10,6 +10,7 @@ import android.widget.Spinner;
 public class Edit_Subject extends AppCompatActivity {
     EditText etName,etPercent,etInstName;
     Button btnEdit;
+    DBHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -18,6 +19,7 @@ public class Edit_Subject extends AppCompatActivity {
         etPercent= (EditText) findViewById(R.id.edit_sub_at_attendance);
         etInstName= (EditText) findViewById(R.id.edit_sub_et_inst);
         btnEdit= (Button) findViewById(R.id.edit_sub_btn_add);
+        db=new DBHelper(getApplicationContext());
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -25,6 +27,6 @@ public class Edit_Subject extends AppCompatActivity {
 
             }
         });
-
+        db.closeDB();
     }
 }
