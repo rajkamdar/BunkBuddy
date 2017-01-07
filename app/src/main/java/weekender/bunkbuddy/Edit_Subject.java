@@ -19,7 +19,7 @@ public class Edit_Subject extends AppCompatActivity {
         etPercent= (EditText) findViewById(R.id.edit_sub_at_attendance);
         etInstName= (EditText) findViewById(R.id.edit_sub_et_inst);
         btnEdit= (Button) findViewById(R.id.edit_sub_btn_add);
-        db=new DBHelper(getApplicationContext());
+        db=DBHelper.getInstance(getApplicationContext());
 
         btnEdit.setOnClickListener(new View.OnClickListener() {
             @Override

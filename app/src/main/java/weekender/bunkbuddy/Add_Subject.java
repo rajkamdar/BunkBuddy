@@ -20,7 +20,7 @@ public class Add_Subject extends AppCompatActivity {
         etInstName= (EditText) findViewById(R.id.add_sub_et_inst);
         etPercent= (EditText) findViewById(R.id.add_sub_at_attendance);
         btnAdd= (Button) findViewById(R.id.add_sub_btn_add);
-        db=new DBHelper(getApplicationContext());
+        db=DBHelper.getInstance(getApplicationContext());
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -31,6 +31,6 @@ public class Add_Subject extends AppCompatActivity {
                     Snackbar.make(view, "Error", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
-        db.closeDB();
+
     }
 }

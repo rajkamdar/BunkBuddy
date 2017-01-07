@@ -45,8 +45,16 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String CREATE_LECTURES_CONDUCTED="CREATE TABLE "+TABLE_LECTURES_CONDUCTED+" ("+LC_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+LC_SUB_ID+" INTEGER,"+LC_Attended+" TEXT,"+LC_DAY+" TEXT)";
     public static final String CREATE_LECTURES_SCHEDULED="CREATE TABLE "+TABLE_LECTURES_SCHEDULED+" ("+LS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+LS_DAY+" TEXT,"+LS_SubID+" INTEGER,"+LS_TIME+" TEXT)";
 
+    private static DBHelper mInstance = null;
 
-    public DBHelper(Context context) {
+    public static DBHelper getInstance(Context ctx) {
+        if (mInstance == null) {
+            mInstance = new DBHelper(ctx.getApplicationContext());
+        }
+        return mInstance;
+    }
+
+    private DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
@@ -72,11 +80,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean addSubject(String sub_Name,String inst_Name,String req_Attendance)
     {
         SQLiteDatabase db = this.getWritableDatabase();
+        //db.beginTransaction();
         ContentValues values = new ContentValues();
         values.put(SUBJECTS_NAME,sub_Name);
         values.put(SUBJECTS_INST_NAME,inst_Name);
         values.put(SUBJECTS_REQ_ATTENDANCE,req_Attendance);
         long result=db.insert(TABLE_SUBJECTS,null,values);
+       // db.endTransaction();
         if(result==-1)
             return false;
         else
@@ -86,23 +96,29 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getAllSubjects() {
         SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
         Cursor res = db.rawQuery("select * from "+TABLE_SUBJECTS,null);
+        db.endTransaction();
         return res;
     }
 
     public Cursor getAllLectures(String day) {
         SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
         Cursor res = db.rawQuery("select SUB.Sub_Name from "+TABLE_LECTURES_SCHEDULED+" as S,"+TABLE_SUBJECTS+" as SUB where S.Sub_ID=SUB.Sub_ID and S.Day='"+day+"'",null);
+        db.endTransaction();
         return res;
     }
    public boolean addLecture(String day,int SubID,int time)
     {
         SQLiteDatabase db = this.getWritableDatabase();
+        //db.beginTransaction();
         ContentValues values = new ContentValues();
         values.put(LS_DAY,day);
         values.put(LS_SubID,SubID);
         values.put(LS_TIME,time);
         long result=db.insert(TABLE_LECTURES_SCHEDULED,null,values);
+       // db.endTransaction();
         if(result==-1)
             return false;
         else
@@ -111,11 +127,13 @@ public class DBHelper extends SQLiteOpenHelper {
     public boolean addAttendance(int subID,String attended,String day)
     {
         SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
         ContentValues values = new ContentValues();
         values.put(LC_SUB_ID,subID);
         values.put(LC_Attended,attended);
         values.put(LC_DAY,day);
         long result=db.insert(TABLE_LECTURES_CONDUCTED,null,values);
+        db.endTransaction();
         if(result==-1)
             return false;
         else
@@ -125,14 +143,19 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor getAttendedLectures(int subID)
     {
         SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
         Cursor res = db.rawQuery("select COUNT(*) from "+TABLE_LECTURES_CONDUCTED+" where Sub_ID='"+subID+"' and Attended='Yes'",null);
+        db.endTransaction();
         return res;
+
     }
 
     public Cursor getTotalLectures(int subID)
     {
         SQLiteDatabase db = this.getWritableDatabase();
+        db.beginTransaction();
         Cursor res = db.rawQuery("select COUNT(*) from "+TABLE_LECTURES_CONDUCTED+" where Sub_ID='"+subID+"'",null);
+        db.endTransaction();
         return res;
     }
 

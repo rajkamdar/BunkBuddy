@@ -30,7 +30,7 @@ public class ViewTimeTable extends AppCompatActivity {
         view_timetable_fab= (FloatingActionButton) findViewById(R.id.view_timetable_fab);
         view_timetable_tv.setText(day);
         lectureAL=new ArrayList<String>();
-        db=new DBHelper(getApplicationContext());
+        db=DBHelper.getInstance(getApplicationContext());
         Cursor sub=db.getAllLectures(day);
         if(sub.getCount()==0)
             Toast.makeText(this, "NO DATA", Toast.LENGTH_LONG).show();

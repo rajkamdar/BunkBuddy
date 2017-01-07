@@ -10,12 +10,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AddAttendance extends AppCompatActivity {
     ListView add_attendance_lv;
-    Intent mIntent=getIntent();
-    String day=mIntent.getStringExtra("day");
+    //Intent mIntent=getIntent();
+    //String day=mIntent.getStringExtra("day");
+    SimpleDateFormat sdf = new SimpleDateFormat("EEEE");
+    Date d = new Date();
+    String dayOfTheWeek = sdf.format(d);
     ArrayList<String> lectureAL;
     DBHelper db;
     @Override
@@ -23,10 +28,9 @@ public class AddAttendance extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_attendance);
         add_attendance_lv= (ListView) findViewById(R.id.add_attendance_lv);
-        db=new DBHelper(getApplicationContext());
+        db=DBHelper.getInstance(getApplicationContext());
         lectureAL=new ArrayList<String>();
-        db=new DBHelper(getApplicationContext());
-        Cursor sub=db.getAllLectures(day);
+        Cursor sub=db.getAllLectures(dayOfTheWeek);
         if(sub.getCount()==0)
             Toast.makeText(this, "NO DATA", Toast.LENGTH_LONG).show();
         else

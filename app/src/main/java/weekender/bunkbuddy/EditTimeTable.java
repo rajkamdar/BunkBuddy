@@ -33,7 +33,7 @@ public class EditTimeTable extends AppCompatActivity {
         etTime= (EditText) findViewById(R.id.edit_tt_et);
         spinnerSubject= (Spinner) findViewById(R.id.edit_tt_spinner);
         edit_tt_btn= (Button) findViewById(R.id.edit_tt_btn_add);
-        db=new DBHelper(getApplicationContext());
+        db=DBHelper.getInstance(getApplicationContext());
 
         Cursor sub=db.getAllSubjects();
         if(sub.getCount()==0)
@@ -66,10 +66,15 @@ public class EditTimeTable extends AppCompatActivity {
             spinnerSubject.setAdapter(itemsAdapter);
         }
 
-        spinnerSubject.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        spinnerSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                sid=subClassList.get(i).getSub_ID();
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                sid=subClassList.get(position).getSub_ID();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
             }
         });
 
@@ -86,5 +91,7 @@ public class EditTimeTable extends AppCompatActivity {
                     Snackbar.make(view, "Error", Snackbar.LENGTH_LONG).setAction("Action", null).show();
             }
         });
+
+        db.closeDB();
     }
 }

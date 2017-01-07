@@ -25,23 +25,28 @@ public class Subjects extends AppCompatActivity {
         Subjects_FAB= (FloatingActionButton) findViewById(R.id.subjects_fab);
         ArrayList<Subjects_Class>subjectsAL=new ArrayList<Subjects_Class>();
         ArrayList<String> nameAL=new ArrayList<String>();
-        db=new DBHelper(getApplicationContext());
-        Cursor sub=db.getAllSubjects();
-        if(sub.getCount()==0)
-            Toast.makeText(this, "NO DATA", Toast.LENGTH_LONG).show();
-        else
-        {
-            int index=0;
-            while(sub.moveToNext())
-            {
-                nameAL.add(index,sub.getString(1));
-                index++;
-            }
-            ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameAL);
-            Subjects_ListView.setAdapter(itemsAdapter);
+        db=DBHelper.getInstance(getApplicationContext());
 
-        }
-        db.closeDB();
+            Cursor sub=db.getAllSubjects();
+            if(sub.getCount()==0)
+                Toast.makeText(this, "NO DATA", Toast.LENGTH_LONG).show();
+            else
+            {
+                int index=0;
+                while(sub.moveToNext())
+                {
+                    nameAL.add(index,sub.getString(1));
+                    index++;
+                }
+                ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameAL);
+                Subjects_ListView.setAdapter(itemsAdapter);
+
+            }
+
+
+
+
+
         Subjects_FAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
