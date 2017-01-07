@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -11,12 +12,13 @@ import java.util.ArrayList;
 
 public class TimeTable extends AppCompatActivity {
     ListView timetable_listView;
+    ArrayList<String> days;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_table);
         timetable_listView= (ListView) findViewById(R.id.timetable_listView);
-        ArrayList<String> days=new ArrayList<String>();
+       days=new ArrayList<String>();
         days.add(0,"Monday");
         days.add(1,"Tuesday");
         days.add(2,"Wednesday");
@@ -27,11 +29,12 @@ public class TimeTable extends AppCompatActivity {
 
         ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, days);
         timetable_listView.setAdapter(itemsAdapter);
-        timetable_listView.setOnClickListener(new View.OnClickListener() {
+        timetable_listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(View view) {
-
-                startActivity(new Intent(TimeTable.this,ViewTimeTable.class));
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent mIntent=new Intent(TimeTable.this,ViewTimeTable.class);
+                mIntent.putExtra("Day",days.get(i));
+                startActivity(mIntent);
                 finish();
             }
         });
