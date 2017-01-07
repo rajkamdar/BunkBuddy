@@ -2,6 +2,7 @@ package weekender.bunkbuddy;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.DatabaseErrorHandler;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -39,9 +40,9 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String LS_TIME="Time";
 
     //Create Table Statements
-    public static final String CREATE_SUBJECTS="CREATE TABLE "+TABLE_SUBJECTS+" ("+SUBJECTS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT "+SUBJECTS_NAME+" TEXT "+SUBJECTS_INST_NAME+" INTEGER "+SUBJECTS_REQ_ATTENDANCE+" INTEGER)";
-    public static final String CREATE_LECTURES_CONDUCTED="CREATE TABLE "+TABLE_LECTURES_CONDUCTED+" ("+LC_ID+" INTEGER PRIMARY KEY AUTOINCREMENT "+LC_SUB_ID+" INTEGER "+LC_Attended+" TEXT )";
-    public static final String CREATE_LECTURES_SCHEDULED="CREATE TABLE "+TABLE_LECTURES_SCHEDULED+" ("+LS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT "+LS_DAY+" TEXT "+LS_SubID+" INTEGER "+LS_TIME+" DATETIME)";
+    public static final String CREATE_SUBJECTS="CREATE TABLE "+TABLE_SUBJECTS+" ("+SUBJECTS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+SUBJECTS_NAME+" TEXT,"+SUBJECTS_INST_NAME+" INTEGER,"+SUBJECTS_REQ_ATTENDANCE+" INTEGER)";
+    public static final String CREATE_LECTURES_CONDUCTED="CREATE TABLE "+TABLE_LECTURES_CONDUCTED+" ("+LC_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+LC_SUB_ID+" INTEGER,"+LC_Attended+" TEXT)";
+    public static final String CREATE_LECTURES_SCHEDULED="CREATE TABLE "+TABLE_LECTURES_SCHEDULED+" ("+LS_ID+" INTEGER PRIMARY KEY AUTOINCREMENT,"+LS_DAY+" TEXT,"+LS_SubID+" INTEGER,"+LS_TIME+" TEXT)";
 
 
     public DBHelper(Context context) {
@@ -79,5 +80,12 @@ public class DBHelper extends SQLiteOpenHelper {
             return false;
         else
             return true;
+    }
+
+
+    public Cursor getAllSubjects() {
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor res = db.rawQuery("select * from "+TABLE_SUBJECTS,null);
+        return res;
     }
 }

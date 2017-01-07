@@ -66,6 +66,7 @@ public class Home extends AppCompatActivity
         if (id == R.id.nav_Subjects) {
             startActivity(new Intent(this,Subjects.class));
         } else if (id == R.id.nav_Timetable) {
+            startActivity(new Intent(this,Add_Subject.class));
 
         } else if (id == R.id.nav_Settings) {
 
