@@ -39,7 +39,7 @@ public class ViewTimeTable extends AppCompatActivity {
             int index=0;
             while(sub.moveToNext())
             {
-                lectureAL.add(index,sub.getString(1));
+                lectureAL.add(index,sub.getString(0));
                 index++;
             }
             ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, lectureAL);

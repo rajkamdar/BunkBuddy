@@ -21,6 +21,7 @@ public class EditTimeTable extends AppCompatActivity {
     Button edit_tt_btn;
     DBHelper db;
     String day;
+    int sid;
     ArrayList<String> subName=new ArrayList<String>();
     ArrayList<Subjects_Class> subClassList=new ArrayList<Subjects_Class>();
     @Override
@@ -65,12 +66,20 @@ public class EditTimeTable extends AppCompatActivity {
             spinnerSubject.setAdapter(itemsAdapter);
         }
 
+        spinnerSubject.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                sid=subClassList.get(i).getSub_ID();
+            }
+        });
 
         edit_tt_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //STATIC
-                boolean result=db.addLecture(day,subClassList.get(0).getSub_ID(),Integer.parseInt(etTime.getText()+""));
+
+                int time=Integer.parseInt(etTime.getText()+"");
+                boolean result=db.addLecture(day,sid,time);
                 if(result)
                     Snackbar.make(view, "Added", Snackbar.LENGTH_LONG).setAction("Action", null).show();
                 else

@@ -92,7 +92,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public Cursor getAllLectures(String day) {
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor res = db.rawQuery("select * from "+TABLE_LECTURES_SCHEDULED+" where Day='"+day+"'",null);
+        Cursor res = db.rawQuery("select SUB.Sub_Name from "+TABLE_LECTURES_SCHEDULED+" as S,"+TABLE_SUBJECTS+" as SUB where S.Sub_ID=SUB.Sub_ID and S.Day='"+day+"'",null);
         return res;
     }
    public boolean addLecture(String day,int SubID,int time)
@@ -102,7 +102,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(LS_DAY,day);
         values.put(LS_SubID,SubID);
         values.put(LS_TIME,time);
-        long result=db.insert(TABLE_SUBJECTS,null,values);
+        long result=db.insert(TABLE_LECTURES_SCHEDULED,null,values);
         if(result==-1)
             return false;
         else
@@ -115,7 +115,7 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(LC_SUB_ID,subID);
         values.put(LC_Attended,attended);
         values.put(LC_DAY,day);
-        long result=db.insert(TABLE_SUBJECTS,null,values);
+        long result=db.insert(TABLE_LECTURES_CONDUCTED,null,values);
         if(result==-1)
             return false;
         else
