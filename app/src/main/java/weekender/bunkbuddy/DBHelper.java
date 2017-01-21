@@ -159,15 +159,19 @@ public class DBHelper extends SQLiteOpenHelper {
         return res;
     }
 
-    public void deleteSubject(int sub_ID) {
+    public Integer deleteSubject(int sub_ID) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_SUBJECTS, SUBJECTS_ID + " = ?",
+        db.delete(TABLE_LECTURES_SCHEDULED,LS_SubID+ " = ?",
+                new String[] { String.valueOf(sub_ID) });
+        db.delete(TABLE_LECTURES_CONDUCTED,LC_SUB_ID+ " = ?",
+                new String[] { String.valueOf(sub_ID) });
+        return db.delete(TABLE_SUBJECTS, SUBJECTS_ID + " = ?",
                 new String[] { String.valueOf(sub_ID) });
     }
 
-    public void deleteLecture(int LS_ID) {
+    public Integer deleteLecture(int LS_ID) {
         SQLiteDatabase db = this.getWritableDatabase();
-        db.delete(TABLE_LECTURES_SCHEDULED, LS_ID + " = ?",
+        return db.delete(TABLE_LECTURES_SCHEDULED, LS_ID + " = ?",
                 new String[] { String.valueOf(LS_ID) });
     }
 

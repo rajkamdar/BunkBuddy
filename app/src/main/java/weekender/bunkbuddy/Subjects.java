@@ -20,6 +20,7 @@ public class Subjects extends AppCompatActivity {
     ListView Subjects_ListView;
     FloatingActionButton Subjects_FAB;
     DBHelper db;
+    ArrayAdapter<String> itemsAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,8 +28,8 @@ public class Subjects extends AppCompatActivity {
         Subjects_ListView= (ListView) findViewById(R.id.subjects_listview);
         Subjects_FAB= (FloatingActionButton) findViewById(R.id.subjects_fab);
         ArrayList<Subjects_Class>subjectsAL=new ArrayList<Subjects_Class>();
-        ArrayList<String> nameAL=new ArrayList<String>();
-
+        final ArrayList<String> nameAL=new ArrayList<String>();
+        final ArrayList<Integer>IDAL=new ArrayList<Integer>();
         db=DBHelper.getInstance(getApplicationContext());
 
             Cursor sub=db.getAllSubjects();
@@ -40,9 +41,10 @@ public class Subjects extends AppCompatActivity {
                 while(sub.moveToNext())
                 {
                     nameAL.add(index,sub.getString(1));
+                    IDAL.add(index,sub.getInt(0));
                     index++;
                 }
-                ArrayAdapter<String> itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameAL);
+                itemsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, nameAL);
                 Subjects_ListView.setAdapter(itemsAdapter);
 
             }
@@ -50,7 +52,7 @@ public class Subjects extends AppCompatActivity {
 
         Subjects_ListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
 
 
                 DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
@@ -59,7 +61,18 @@ public class Subjects extends AppCompatActivity {
                         switch (which){
                             case DialogInterface.BUTTON_POSITIVE:
                                 //Yes button clicked
+                                int sub_id=IDAL.get(position);
+                                Integer deletedRows=db.deleteSubject(sub_id);
+                                if(deletedRows>0)
+                                {
+                                    Toast.makeText(Subjects.this,"Subject Deleted",Toast.LENGTH_LONG).show();
+                                    nameAL.remove(position);
+                                    IDAL.remove(position);
+                                    itemsAdapter.notifyDataSetChanged();
+                                }
 
+                                else
+                                    Toast.makeText(Subjects.this,"Unable to Delete",Toast.LENGTH_LONG).show();
                                 break;
 
                             case DialogInterface.BUTTON_NEGATIVE:
