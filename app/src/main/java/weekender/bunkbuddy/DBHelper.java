@@ -159,6 +159,12 @@ public class DBHelper extends SQLiteOpenHelper {
         return res;
     }
 
+    public void deleteSubject(int sub_ID) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_SUBJECTS, SUBJECTS_ID + " = ?",
+                new String[] { String.valueOf(sub_ID) });
+    }
+
     // closing database
     public void closeDB() {
         SQLiteDatabase db = this.getReadableDatabase();
