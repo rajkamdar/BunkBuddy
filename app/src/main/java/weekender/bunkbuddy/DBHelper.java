@@ -105,7 +105,7 @@ public class DBHelper extends SQLiteOpenHelper {
     public Cursor getAllLectures(String day) {
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
-        Cursor res = db.rawQuery("select SUB.Sub_Name,SUB.Sub_Id from "+TABLE_LECTURES_SCHEDULED+" as S,"+TABLE_SUBJECTS+" as SUB where S.Sub_ID=SUB.Sub_ID and S.Day='"+day+"'",null);
+        Cursor res = db.rawQuery("select SUB.Sub_Name,SUB.Sub_Id ,S.LS_ID from "+TABLE_LECTURES_SCHEDULED+" as S,"+TABLE_SUBJECTS+" as SUB where S.Sub_ID=SUB.Sub_ID and S.Day='"+day+"'",null);
         db.endTransaction();
         return res;
     }
@@ -169,10 +169,10 @@ public class DBHelper extends SQLiteOpenHelper {
                 new String[] { String.valueOf(sub_ID) });
     }
 
-    public Integer deleteLecture(int LS_ID) {
+    public Integer deleteLecture(int LSid) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_LECTURES_SCHEDULED, LS_ID + " = ?",
-                new String[] { String.valueOf(LS_ID) });
+                new String[] { String.valueOf(LSid) });
     }
 
 
