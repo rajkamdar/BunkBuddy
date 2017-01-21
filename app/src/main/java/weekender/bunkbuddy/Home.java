@@ -3,6 +3,7 @@ package weekender.bunkbuddy;
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -17,15 +18,22 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 public class Home extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     ListView home_lv;
+    DBHelper db;
+    ArrayList<String> AL_name;
+    ArrayList<Integer> AL_attended,AL_total;
+    HomeAdapter itemsAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +42,46 @@ public class Home extends AppCompatActivity
         setSupportActionBar(toolbar);
         home_lv= (ListView) findViewById(R.id.home_lv);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        AL_name=new ArrayList<String>();
+        AL_total=new ArrayList<Integer>();
+        AL_attended=new ArrayList<Integer>();
+
+        db=DBHelper.getInstance(getApplicationContext());
+
+        Cursor sub=db.getAllSubjects();
+        if(sub.getCount()==0)
+            Toast.makeText(this, "NO DATA", Toast.LENGTH_LONG).show();
+        else
+        {
+            int index=0;
+            while(sub.moveToNext())
+            {
+                AL_name.add(index,sub.getString(1));
+
+                Cursor sub2=db.getTotalLectures(sub.getInt(0));
+
+                while(sub2.moveToNext())
+                {
+                    AL_total.add(index,sub2.getInt(0));
+                }
+
+
+                Cursor sub3=db.getAttendedLectures(sub.getInt(0));
+
+                while(sub3.moveToNext())
+                {
+                    AL_attended.add(index,sub3.getInt(0));
+                }
+
+                index++;
+            }
+
+            itemsAdapter = new HomeAdapter(this,AL_name,AL_attended,AL_total);
+            home_lv.setAdapter(itemsAdapter);
+
+        }
+
+
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

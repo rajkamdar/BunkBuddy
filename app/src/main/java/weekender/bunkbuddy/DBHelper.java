@@ -144,7 +144,7 @@ public class DBHelper extends SQLiteOpenHelper {
     {
         SQLiteDatabase db = this.getWritableDatabase();
         db.beginTransaction();
-        Cursor res = db.rawQuery("select COUNT(*) from "+TABLE_LECTURES_CONDUCTED+" where Sub_ID='"+subID+"' and Attended='Yes'",null);
+        Cursor res = db.rawQuery("select COUNT(*) from "+TABLE_LECTURES_CONDUCTED+" where Sub_ID='"+subID+"' and Attended='YES'",null);
         db.endTransaction();
         return res;
 

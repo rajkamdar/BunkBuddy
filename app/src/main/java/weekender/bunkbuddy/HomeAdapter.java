@@ -20,7 +20,7 @@ public class HomeAdapter extends BaseAdapter {
     ArrayList<String> AL_subNames;
     ArrayList<Integer> AL_total,AL_attended;
 
-    public HomeAdapter(Context context, LayoutInflater inflater, ArrayList<String> AL_subNames, ArrayList<Integer> AL_total, ArrayList<Integer> AL_attended) {
+    public HomeAdapter(Context context,  ArrayList<String> AL_subNames, ArrayList<Integer> AL_attended, ArrayList<Integer> AL_total) {
         this.context = context;
         this.AL_subNames = AL_subNames;
         this.AL_total = AL_total;
@@ -50,7 +50,7 @@ public class HomeAdapter extends BaseAdapter {
         if(convertView==null)
         {
             convertView=inflater.inflate(R.layout.custom_home,null);
-            viewHolder=new home_viewholder((TextView)convertView.findViewById(R.id.home_subname_tv),(TextView)convertView.findViewById(R.id.home_percent_tv),(TextView)convertView.findViewById(R.id.home_attended_tv),(TextView)convertView.findViewById(R.id.home_total_tv));
+            viewHolder=new home_viewholder((TextView)convertView.findViewById(R.id.home_subname_tv),(TextView)convertView.findViewById(R.id.home_percent_tv),(TextView)convertView.findViewById(R.id.home_total_tv),(TextView)convertView.findViewById(R.id.home_attended_tv));
             convertView.setTag(viewHolder);
         }
         else
@@ -59,9 +59,12 @@ public class HomeAdapter extends BaseAdapter {
         }
 
         viewHolder.getHome_subject_tc().setText(AL_subNames.get(position));
-        viewHolder.getHome_attended_tv().setText(AL_attended.get(position));
-        viewHolder.getHome_total_tv().setText(AL_total.get(position));
-        viewHolder.getHome_percent_tv().setText((AL_attended.get(position)/AL_total.get(position))*100);
+       viewHolder.getHome_attended_tv().setText(AL_attended.get(position).toString());
+       viewHolder.getHome_total_tv().setText(AL_total.get(position).toString());
+        if(AL_total.get(position)!=0)
+            viewHolder.getHome_percent_tv().setText((AL_attended.get(position)*100)/AL_total.get(position)+"");
+        else
+            viewHolder.getHome_percent_tv().setText("0aay");
         return convertView;
     }
 }
